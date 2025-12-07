@@ -24,22 +24,46 @@ void controller::operation() {
     // Pętla kontrolera
     while (true) {
         if (cd1.read() && !p1) {
-            if (dir) c1++; else c1--;
+            if (dir){
+                c1++;
+            }
+            else {
+                c1--;
+            }
         }
         p1 = cd1.read();
 
         if (cd2.read() && !p2) {
-            if (dir) c2++; else c2--;
+            if (dir) {
+                c1--;
+                c2++;
+            }
+            else {
+                c2--;
+                c1++;
+            }
         }
         p2 = cd2.read();
 
         if (cd3.read() && !p3) {
-            if (dir) c3++; else c3--;
+            if (dir) {
+                c3--;
+                c4++;
+            }
+            else {
+                c4--;
+                c3++;
+            }
         }
         p3 = cd3.read();
 
         if (cd4.read() && !p4) {
-            if (dir) c4++; else c4--;
+            if (dir) {
+                c4--;
+            }
+            else {
+                c4++;
+            }
         }
         p4 = cd4.read();
 

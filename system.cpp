@@ -2,11 +2,34 @@
 #include <iostream>
 using namespace std;
 
+const char* visualisation = R"(
+---------------------
+|         |         |
+|         |         |
+CD1  %d   CD2   %d    |
+|         |         |
+|         |         |
+---------------------
+|         |         |
+|         |         |
+|    %d   CD3   %d   CD4
+|         |         |
+|         |         |
+---------------------
+)";
+
+
 void SYSTEM::simulate(){
     int input = 0;
 
     while(true){
+        cout << "\033[2J\033[1;1H"; // wyczyszczenie konsoli
         cout << "==KONTROLER SWIATLA==\n";
+
+        printf(visualisation, s1_sig.read(), s2_sig.read(), s3_sig.read(), s4_sig.read());
+        cout << "\nStatus alarmu: " << (alarm_sig.read() ? "WŁĄCZONY!" : "wyłączony") << endl;
+        cout << "Kierunek przechodzenia: " << (dir_sig.read() ? "w prawo" : "w lewo") << endl << endl;
+
         cout << "1. Drzwi CD1\n";
         cout << "2. Drzwi CD2\n";
         cout << "3. Drzwi CD3\n";
@@ -56,7 +79,5 @@ void SYSTEM::simulate(){
         }
 
         wait(); // Odświeżenie wartości kontrolera
-        cout << "\n\nS1: " << s1_sig.read() << " S2: " << s2_sig.read() << " S3: " << s3_sig.read() << " S4: " << s4_sig.read() << "\n";
-        cout << "Alarm: " << alarm_sig.read() << "\n\n";
     }
 }
