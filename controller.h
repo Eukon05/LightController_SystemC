@@ -1,4 +1,5 @@
 #include <systemc.h>
+#include "channel.h"
 using namespace std;
 
 SC_MODULE(controller){
@@ -8,11 +9,7 @@ SC_MODULE(controller){
     // Ile osób w pokoju
     int c1, c2, c3, c4;
 
-    // Poprzedni stan drzwi
-    bool p1, p2, p3, p4;
-
-    // Drzwi między pokojami
-    sc_in<bool> cd1, cd2, cd3, cd4;
+    sc_port<DoorEventIf> channel;
 
     // Wchodzi / wychodzi
     sc_in<bool> dir;

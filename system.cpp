@@ -41,28 +41,12 @@ void SYSTEM::simulate(){
         cin >> input;
 
         switch(input){
-            case 1: {
-                cd1_sig.write(true);
-                wait();
-                cd1_sig.write(false);
-                break;
-            }
-            case 2: {
-                cd2_sig.write(true);
-                wait();
-                cd2_sig.write(false);
-                break;
-            }
-            case 3: {
-                cd3_sig.write(true);
-                wait();
-                cd3_sig.write(false);
-                break;
-            }
+            case 1:
+            case 2:
+            case 3:
             case 4: {
-                cd4_sig.write(true);
+                channel->nb_write(input);
                 wait();
-                cd4_sig.write(false);
                 break;
             }
             case 9: {

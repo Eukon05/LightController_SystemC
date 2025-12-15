@@ -8,11 +8,6 @@ void controller::operation() {
     c3 = 0;
     c4 = 0;
 
-    p1 = false;
-    p2 = false;
-    p3 = false;
-    p4 = false;
-
     s1.write(false);
     s2.write(false);
     s3.write(false);
@@ -21,51 +16,57 @@ void controller::operation() {
 
     wait();
 
+    int qres = 0;
     // Pętla kontrolera
     while (true) {
-        if (cd1.read() && !p1) {
-            if (dir){
-                c1++;
-            }
-            else {
-                c1--;
-            }
+        if(!channel->nb_read(qres)){
+            wait();
+            continue;
         }
-        p1 = cd1.read();
 
-        if (cd2.read() && !p2) {
-            if (dir) {
-                c1--;
-                c2++;
+        switch(qres){
+            case 1: {
+                if (dir){
+                    c1++;
+                }
+                else {
+                    c1--;
+                }
+                break;
             }
-            else {
-                c2--;
-                c1++;
+            case 2: {
+                if (dir) {
+                    c1--;
+                    c2++;
+                }
+                else {
+                    c2--;
+                    c1++;
+                }
+                break;
+            }
+            case 3: {
+                if (dir) {
+                    c3--;
+                    c4++;
+                }
+                else {
+                    c4--;
+                    c3++;
+                }
+                break;
+            }
+            case 4: {
+                if (dir) {
+                    c4--;
+                }
+                else {
+                    c4++;
+                }
+                break;
             }
         }
-        p2 = cd2.read();
 
-        if (cd3.read() && !p3) {
-            if (dir) {
-                c3--;
-                c4++;
-            }
-            else {
-                c4--;
-                c3++;
-            }
-        }
-        p3 = cd3.read();
-
-        if (cd4.read() && !p4) {
-            if (dir) {
-                c4--;
-            }
-            else {
-                c4++;
-            }
-        }
-        p4 = cd4.read();
 
         if (c1 > 0) s1.write(true); else if (c1 == 0) s1.write(false); else alarm.write(true);
         if (c2 > 0) s2.write(true); else if (c2 == 0) s2.write(false); else alarm.write(true);
