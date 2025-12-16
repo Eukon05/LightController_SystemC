@@ -6,14 +6,14 @@ const char* visualisation = R"(
 ---------------------
 |         |         |
 |         |         |
-CD1  %d   CD2   %d    |
-|         |         |
+CD1  %s   CD2   %s    |
+|    %d    |    %d    |
 |         |         |
 ---------------------
 |         |         |
 |         |         |
-|    %d   CD3   %d   CD4
-|         |         |
+|    %s   CD3   %s   CD4
+|    %d    |    %d    |
 |         |         |
 ---------------------
 )";
@@ -26,7 +26,13 @@ void SYSTEM::simulate(){
         cout << "\033[2J\033[1;1H"; // wyczyszczenie konsoli
         cout << "==KONTROLER SWIATLA==\n";
 
-        printf(visualisation, s1_sig.read(), s2_sig.read(), s3_sig.read(), s4_sig.read());
+        printf(visualisation,
+               s1_sig.read() == 0 ? "X" : "O",
+               s2_sig.read() == 0 ? "X" : "O",
+               co1_sig.read(), co2_sig.read(),
+               s3_sig.read() == 0 ? "X" : "O",
+               s4_sig.read() == 0 ? "X" : "O",
+               co3_sig.read(), co4_sig.read());
         cout << "\nStatus alarmu: " << (alarm_sig.read() ? "WŁĄCZONY!" : "wyłączony") << endl;
         cout << "Kierunek przechodzenia: " << (dir_sig.read() ? "w prawo" : "w lewo") << endl << endl;
 

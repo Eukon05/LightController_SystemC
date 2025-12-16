@@ -14,6 +14,11 @@ void controller::operation() {
     s4.write(false);
     alarm.write(false);
 
+    co1.write(0);
+    co2.write(0);
+    co3.write(0);
+    co4.write(0);
+
     wait();
 
     int qres = 0;
@@ -73,6 +78,10 @@ void controller::operation() {
         if (c3 > 0) s3.write(true); else if (c3 == 0) s3.write(false); else alarm.write(true);
         if (c4 > 0) s4.write(true); else if (c4 == 0) s4.write(false); else alarm.write(true);
 
+        co1.write(c1);
+        co2.write(c2);
+        co3.write(c3);
+        co4.write(c4);
         wait();
     }
 }
